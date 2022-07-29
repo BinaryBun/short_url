@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/styles/style.css">
+  <title>Pass</title>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="info">
+      <h2>🔴 🟡 🔴</h2>
+      <spa></spa>
+    </div>
+  </nav>
+  <form method="post" action="/find/" >
+   <div class="search">
+     <input type="text" class="main_input" name="find" autocomplete="off">
+     <button class="main_input">Search</button>
+   </div>
+   <div>
+     <h1>Main URL: {{ .Main_url }}</h1>
+     <h1>Short URL: {{ .Short_url }}</h1>
+   </div>
+ </form>
+</body>
+</html>
