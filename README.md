@@ -14,6 +14,14 @@ $ sudo redis-server
 $ go run shorter.go
 ```
 
+## Сustomization
+You can customize url length, TTL and host.
+```Go
+16. const deadline = 1*time.Hour  // your time
+17. const host = "your url"  // format: "http://host/ref/"
+18. const url_length = 6  // your length
+```
+
 ## Interface
 ![Interface](./images/interface.png)
 

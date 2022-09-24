@@ -15,6 +15,7 @@ import ("log"
 
 const deadline = 1*time.Hour
 const host = "http://localhost:8080/ref/"
+const url_length = 6
 
 type URL struct {
   URLs    [][3]string  // [main_url, short_url, TTL]
@@ -155,8 +156,8 @@ func redirect(w http.ResponseWriter, r *http.Request) {
     matched, _ := regexp.Match(pattern, []byte(r.FormValue("find")))
     if matched {
       // redis add hash-FormValue
-      rand_str := randomString(6)
-      for db.exists(rand_str) { rand_str = randomString(6) }
+      rand_str := randomString(url_length)
+      for db.exists(rand_str) { rand_str = randomString(url_length) }
       db.set(rand_str, r.FormValue("find") )
       set_cookie(w, r, rand_str)
     } else {
