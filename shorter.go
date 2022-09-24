@@ -14,7 +14,7 @@ import ("log"
         "github.com/go-redis/redis")
 
 const deadline = 1*time.Hour
-const host = "http://185.23.228.144:8080/ref/"
+const host = "http://localhost:8080/ref/"
 
 type URL struct {
   URLs    [][3]string  // [main_url, short_url, TTL]

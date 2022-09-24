@@ -16,6 +16,13 @@ input {
   outline: none;
 }
 
+a:active,
+a:hover,
+a {
+  color: #f9f7f8;
+  text-decoration: none;
+}
+
 .search {
   margin-left: 3px;
   margin-right: 3px;
