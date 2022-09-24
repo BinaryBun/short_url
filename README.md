@@ -13,6 +13,7 @@ Client abbreviations are stored in cookies and are checked for TTL
     <td>
 
     Starting redis server
+
     ``` bash
     $ sudo redis-server
     ```
@@ -25,6 +26,7 @@ Client abbreviations are stored in cookies and are checked for TTL
     <td>
 
     Starting redis server
+    
     ``` bash
     $ go run shorter.go
     ```
