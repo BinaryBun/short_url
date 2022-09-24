@@ -4,36 +4,17 @@ All data is stored in Redis. <br>
 Client abbreviations are stored in cookies and are checked for TTL
 
 ## Running
-
-<table>
-  <tr>
-    <td>
-      <b>Redis</b>
-    </td>
-    <td>
-
-    Starting redis server
-
+- ```Redis```
+ > Starting redis server <br>
 ``` bash
 $ sudo redis-server
 ```
 
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <b>GoLang</b>
-    </td>
-    <td>
-
-    Starting redis server
+- ```GoLand```
+> Starting server
 ``` bash
 $ go run shorter.go
 ```
-
-    </td>
-  </tr>
-</table>
 
 ## Interface
 ![Interface](./images/interface.png)
