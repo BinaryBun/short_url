@@ -19,10 +19,15 @@
      <input type="text" class="main_input" name="find" autocomplete="off">
      <button class="main_input">Search</button>
    </div>
-   <div>
-     <h1>Main URL: {{ .Main_url }}</h1>
-     <h1>Short URL: {{ .Short_url }}</h1>
-   </div>
+   {{ range .URLs }}
+   <div class="elim">
+     <div class="elims">
+       <p>Main URL: <a href={{ index . 0 }}>{{ index . 0 }}</a></p>
+       <p>Short URL: <a href={{ index . 1 }}>{{ index . 1 }}</a></p>
+       <p>TTL: {{ index . 2 }}</p>
+     </div>
+    </div>
+   {{ end }}
  </form>
 </body>
 </html>

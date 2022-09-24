@@ -61,3 +61,13 @@ input {
   padding: 1px;
   padding-left: 10px;
 }
+
+.elims {
+  border-radius: 20px;
+  border-color: #262332;
+  background-color: #262332;
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 1px;
+  padding-left: 10px;
+}
