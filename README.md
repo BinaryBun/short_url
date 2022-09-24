@@ -12,12 +12,10 @@ Client abbreviations are stored in cookies and are checked for TTL
     </td>
     <td>
 
-    Starting redis server
-
     ``` bash
     $ sudo redis-server
     ```
-    
+
     </td>
   </tr>
   <tr>
