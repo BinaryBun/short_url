@@ -12,9 +12,11 @@ Client abbreviations are stored in cookies and are checked for TTL
     </td>
     <td>
 
-    ``` bash
-    $ sudo redis-server
-    ```
+    Starting redis server
+
+``` bash
+$ sudo redis-server
+```
 
     </td>
   </tr>
@@ -25,10 +27,10 @@ Client abbreviations are stored in cookies and are checked for TTL
     <td>
 
     Starting redis server
+``` bash
+$ go run shorter.go
+```
 
-    ``` bash
-    $ go run shorter.go
-    ```
     </td>
   </tr>
 </table>
