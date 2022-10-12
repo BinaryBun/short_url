@@ -8,6 +8,17 @@
   <title>Pass</title>
 </head>
 <body>
+  <script src="templace/browser.js"></script>
+  <script>
+    async function run() {
+      for (let i = 0; i < 100; i++) {
+        console.log("I:" + i);
+        write();
+        await sleep(1 * 1000);
+      }
+    }
+    run();
+  </script>
   <nav class="top-nav">
     <div class="info">
       <h2>🔴 🟡 🔴</h2>
@@ -20,14 +31,17 @@
      <button class="main_input">Search</button>
    </div>
    {{ range .URLs }}
-   <div class="elim">
-     <div class="elims">
+   <div class="elim" id="main">
+     <div class="elims" id = DIV{{ index . 3  }}>
        <p>Main URL: <a href={{ index . 0 }}>{{ index . 0 }}</a></p>
        <p>Short URL: <a href={{ index . 1 }}>{{ index . 1 }}</a></p>
-       <p>TTL: {{ index . 2 }}</p>
+       <p id={{ index . 3 }}>TTL: {{ index . 2 }}</p>
      </div>
     </div>
    {{ end }}
+   <div id="pass">
+
+   </div>
  </form>
 </body>
 </html>

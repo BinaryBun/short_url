@@ -18,7 +18,7 @@ const host = "http://localhost:8080/ref/"
 const url_length = 6
 
 type URL struct {
-  URLs    [][3]string  // [main_url, short_url, TTL]
+  URLs    [][4]string  // [main_url, short_url, TTL, short]
 }
 
 type redisDB struct {
@@ -56,7 +56,9 @@ func (r *redisDB) exists(key string) bool {
 func (r *redisDB) ttl(key string) string {
   result := fmt.Sprintf("%v", r.rdb.TTL(r.ctx, key))
   result = strings.Split(result, " ")[2]
-  if result[1]!='h' && result[2]!='h' { result = "0:"+result }
+  if strings.Count(result, "h") == 0 { result = "0:"+result }
+  if strings.Count(result, "m") == 0 { result = "0:"+result }
+
   result = strings.Replace(result, "h", ":", -1)
   result = strings.Replace(result, "m", ":", -1)
   result = strings.Replace(result, "s", "", -1)
@@ -84,11 +86,13 @@ func set_cookie(w http.ResponseWriter, r *http.Request, cookieValue string) {
       Expires:    time.Time{},
       RawExpires: "",
       MaxAge:     0,
-      Secure:     false,
-      HttpOnly:   true,
-      SameSite:   0,
+      HttpOnly:   false,
       Raw:        "",
       Unparsed:   nil,} )
+
+    cs := w.Header().Get("Set-Cookie")
+    cs += "; SameSite=lax"
+    w.Header().Set("Set-Cookie", cs)
 }
 
 func clearCookie(w http.ResponseWriter, r *http.Request) []string  {
@@ -112,13 +116,15 @@ func clearCookie(w http.ResponseWriter, r *http.Request) []string  {
       Expires:    time.Time{},
       RawExpires: "",
       MaxAge:     0,
-      Secure:     false,
-      HttpOnly:   true,
-      SameSite:   0,
+      HttpOnly:   false,
       Raw:        "",
       Unparsed:   nil,} )
 
-    return strings.Split(result, "|")[1:]
+  cs := w.Header().Get("Set-Cookie")
+  cs += "; SameSite=lax"
+  w.Header().Set("Set-Cookie", cs)
+
+  return strings.Split(result, "|")[1:]
 }
 
 func randomString(length int) string {
@@ -138,7 +144,7 @@ func homePage(w http.ResponseWriter, r *http.Request) {
   // get short_url: [main_url, TTL]
   u := URL{}
   for _, key := range(cookies) {
-    u.URLs = append(u.URLs, [3]string {db.get(key), host+key, db.ttl(key)})
+    u.URLs = append(u.URLs, [4]string {db.get(key), host+key, db.ttl(key), key})
     //u.URLs[host+key] = [2]string {db.get(key), db.ttl(key)}
   }
 
@@ -187,10 +193,17 @@ func pageHeaders() {
              http.StripPrefix("/styles/",
                               http.FileServer(http.Dir("./styles/"))))
 
+  http.Handle("/templace/",
+             http.StripPrefix("/templace/",
+                              http.FileServer(http.Dir("./templace/"))))
+
   rout := mux.NewRouter()
   rout.HandleFunc("/", homePage).Methods("GET")
   rout.HandleFunc("/find/", redirect).Methods("POST")
   rout.HandleFunc("/ref/{id}", get_normal_url).Methods("GET", "POST")
+
+  rout.HandleFunc("/api", api).Methods("GET", "POST")
+  rout.HandleFunc("/api/", api).Methods("GET", "POST")
 
   http.Handle("/", rout)  // перенаправление на роутер
   http.ListenAndServe(":8080", nil)
