@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+
+  web:
+    build: ./cmd
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
